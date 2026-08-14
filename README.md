@@ -45,4 +45,4 @@ Pagini auxiliare: `/apa` (ApaRahova), `/investors` (pitch investitori, separat).
 |---|---|---|
 | 1 | Auth, DB, layout | ✅ |
 | 2 | Feed + Mânzare + voice Gemini | ✅ |
-| 3 | Logistică + handshake | 🔜 |
+| 3 | Strungă-Transport + handshake | 🔜 |
