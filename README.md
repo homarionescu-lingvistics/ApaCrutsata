@@ -26,9 +26,9 @@ Rulează `supabase/schema.sql` în Supabase SQL Editor.
 
 | Tab | Rută | Descriere |
 |---|---|---|
-| Acasă | `/` | Feed anunțuri locale |
+| La Cătun | `/` | Feed anunțuri locale |
 | Mânzare & Prăvălii | `/piata` | Produse + firme |
-| Logistică | `/logistica` | Transport & inter-ajutor |
+| Strungă-Transport | `/logistica` | Transport & inter-ajutor |
 | Scofalută | `/scofaluta` | Prețuri & puncte RON |
 | Cont | `/cont` | Profil & anunțurile mele |
 

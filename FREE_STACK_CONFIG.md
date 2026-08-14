@@ -34,9 +34,9 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 ## 5. Pagini & Rute (referință deploy)
 | Rută | Modul |
 |---|---|
-| `/` | Acasă (feed) |
+| `/` | La Cătun (feed) |
 | `/piata` | Mânzare & Prăvălii |
-| `/logistica` | Logistică & Ajutor |
+| `/logistica` | Strungă-Transport |
 | `/scofaluta` | Scofalută |
 | `/apa` | Apa / ApaRahova |
 | `/cont` | Contul meu |

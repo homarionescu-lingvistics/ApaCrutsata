@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Coins, Droplets, Home, ShoppingBasket, Truck, User } from "lucide-react";
 
 const items = [
-  { href: "/", label: "Acasă", sub: "Feed", icon: Home },
+  { href: "/", label: "La Cătun", sub: "Feed", icon: Home },
   { href: "/piata", label: "Mânzare", sub: "Produse", icon: ShoppingBasket },
-  { href: "/logistica", label: "Logistică", sub: "Ajutor", icon: Truck },
+  { href: "/logistica", label: "Strungă", sub: "Transport", icon: Truck },
   { href: "/scofaluta", label: "Scofalută", sub: "RON", icon: Coins },
   { href: "/cont", label: "Cont", sub: "Profil", icon: User },
 ] as const;

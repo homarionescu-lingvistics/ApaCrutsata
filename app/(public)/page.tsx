@@ -11,9 +11,9 @@ export default async function HomePage() {
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <h1 className="text-2xl font-bold tracking-tight">Feed local</h1>
+        <h1 className="text-2xl font-bold tracking-tight">La Cătun</h1>
         <p className="text-sm text-slate-400">
-          Anunțuri din zonă — scroll simplu, buton verde Sună.
+          Ce e nou în zona ta — scroll simplu, buton verde Sună.
         </p>
         <Link href="/piata">
           <Button className="w-full">+ Publică la Mânzare</Button>
