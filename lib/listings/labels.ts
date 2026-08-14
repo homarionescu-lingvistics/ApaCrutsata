@@ -7,6 +7,14 @@ export const LISTING_TYPES: { value: ListingType; label: string; emoji: string }
   { value: "request", label: "Caut", emoji: "🔍" },
 ];
 
+export const LOGISTICS_TYPES = LISTING_TYPES.filter(
+  (t) => t.value === "asset" || t.value === "service" || t.value === "request"
+);
+
+export function isLogisticsType(type: ListingType) {
+  return type === "asset" || type === "service" || type === "request";
+}
+
 export const STATUS_LABELS: Record<ListingStatus, string> = {
   active: "Activ",
   closed: "Finalizat",

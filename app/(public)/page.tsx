@@ -18,6 +18,18 @@ export default async function HomePage() {
         <Link href="/piata">
           <Button className="w-full">+ Publică la Mânzare</Button>
         </Link>
+        <div className="flex gap-2">
+          <Link href="/apa" className="flex-1">
+            <Button variant="ghost" className="w-full">
+              Apa Crutsată
+            </Button>
+          </Link>
+          <Link href="/beta" className="flex-1">
+            <Button variant="ghost" className="w-full">
+              TikTok 15s
+            </Button>
+          </Link>
+        </div>
       </header>
 
       <ApaQuickLink />

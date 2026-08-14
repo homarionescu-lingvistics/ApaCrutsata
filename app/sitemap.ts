@@ -2,7 +2,16 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://crutsanimia-ron.vercel.app";
-  const routes = ["/", "/piata", "/logistica", "/scofaluta", "/apa", "/auth/signup"];
+  const routes = [
+    "/",
+    "/piata",
+    "/logistica",
+    "/scofaluta",
+    "/apa",
+    "/beta",
+    "/investors",
+    "/auth/login",
+  ];
 
   return routes.map((path) => ({
     url: `${base}${path}`,

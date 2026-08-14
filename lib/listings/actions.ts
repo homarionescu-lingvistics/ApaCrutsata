@@ -22,7 +22,7 @@ export async function createListing(formData: FormData) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect("/auth/login?next=/piata");
+  if (!user) redirect(`/auth/login?next=${formString(formData, "next") || "/piata"}`);
 
   const title = formString(formData, "title");
   const type = formString(formData, "type") as ListingType;
@@ -61,6 +61,8 @@ export async function createListing(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/piata");
+  revalidatePath("/logistica");
+  revalidatePath("/apa");
   revalidatePath("/cont");
   return { success: true };
 }
@@ -84,6 +86,8 @@ export async function closeListing(formData: FormData) {
 
   revalidatePath("/");
   revalidatePath("/piata");
+  revalidatePath("/logistica");
+  revalidatePath("/apa");
   revalidatePath("/cont");
   return { success: true };
 }

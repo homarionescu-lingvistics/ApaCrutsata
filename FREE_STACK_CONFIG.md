@@ -29,6 +29,8 @@ NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 GEMINI_API_KEY=your-google-ai-studio-key
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+# Când website-ul ApaRahova e live:
+# NEXT_PUBLIC_APARAHVA_URL=https://aparahova.example
 ```
 
 ## 5. Pagini & Rute (referință deploy)

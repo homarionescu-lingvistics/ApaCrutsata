@@ -32,7 +32,7 @@ Rulează `supabase/schema.sql` în Supabase SQL Editor.
 | Scofalută | `/scofaluta` | Prețuri & puncte RON |
 | Cont | `/cont` | Profil & anunțurile mele |
 
-Pagini auxiliare: `/apa` (ApaRahova), `/investors` (pitch investitori, separat).
+Pagini auxiliare: `/apa` (Apa Crutsată), `/beta` (scripturi TikTok), `/investors` (pitch, layout separat).
 
 ## Docs
 
@@ -45,4 +45,8 @@ Pagini auxiliare: `/apa` (ApaRahova), `/investors` (pitch investitori, separat).
 |---|---|---|
 | 1 | Auth, DB, layout | ✅ |
 | 2 | Feed + Mânzare + voice Gemini | ✅ |
-| 3 | Strungă-Transport + handshake | 🔜 |
+| 3 | Strungă-Transport + handshake | ✅ |
+| 4 | Scofalută + Cont anunțuri | ✅ |
+| 5 | Apa Crutsată + KYB ANAF | ✅ |
+| 6 | Reels + Trust Score + PWA | ✅ |
+| 7 | Investors + TikTok beta + deploy | ✅ |

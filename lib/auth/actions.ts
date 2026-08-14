@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
@@ -69,6 +70,7 @@ export async function signIn(formData: FormData) {
 export async function signOut() {
   const supabase = createClient();
   await supabase.auth.signOut();
+  cookies().set("cr_device", "", { path: "/", maxAge: 0 });
   revalidatePath("/", "layout");
   redirect("/");
 }

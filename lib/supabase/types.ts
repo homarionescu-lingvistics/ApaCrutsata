@@ -9,6 +9,8 @@ export type Profile = {
   cui_number: string | null;
   is_verified_sme: boolean;
   ron_local_balance: number;
+  phone: string | null;
+  trust_score: number;
   created_at: string;
 };
 
@@ -57,6 +59,8 @@ export type Database = {
           cui_number?: string | null;
           is_verified_sme?: boolean;
           ron_local_balance?: number;
+          phone?: string | null;
+          trust_score?: number;
           created_at?: string;
         };
         Update: {
@@ -65,6 +69,8 @@ export type Database = {
           cui_number?: string | null;
           is_verified_sme?: boolean;
           ron_local_balance?: number;
+          phone?: string | null;
+          trust_score?: number;
         };
         Relationships: [];
       };
@@ -131,6 +137,131 @@ export type Database = {
           created_at?: string;
         };
         Update: Partial<Omit<Listing, "id" | "user_id">>;
+        Relationships: [];
+      };
+      phone_login_tokens: {
+        Row: {
+          id: string;
+          phone: string;
+          token: string;
+          expires_at: string;
+          used_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          phone: string;
+          token: string;
+          expires_at: string;
+          used_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          used_at?: string | null;
+        };
+        Relationships: [];
+      };
+      trusted_devices: {
+        Row: {
+          id: string;
+          user_id: string;
+          phone: string;
+          device_token: string;
+          user_agent: string | null;
+          last_seen: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          phone: string;
+          device_token: string;
+          user_agent?: string | null;
+          last_seen?: string;
+          created_at?: string;
+        };
+        Update: {
+          last_seen?: string;
+        };
+        Relationships: [];
+      };
+      handshakes: {
+        Row: {
+          id: string;
+          listing_id: string;
+          owner_id: string;
+          code: string;
+          partner_id: string | null;
+          owner_confirmed_at: string | null;
+          partner_confirmed_at: string | null;
+          confirmed_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          listing_id: string;
+          owner_id: string;
+          code: string;
+          partner_id?: string | null;
+          owner_confirmed_at?: string | null;
+          partner_confirmed_at?: string | null;
+          confirmed_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          partner_id?: string | null;
+          owner_confirmed_at?: string | null;
+          partner_confirmed_at?: string | null;
+          confirmed_at?: string | null;
+        };
+        Relationships: [];
+      };
+      ron_local_ledger: {
+        Row: {
+          id: string;
+          user_id: string;
+          amount: number;
+          reason: string;
+          expires_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          amount: number;
+          reason: string;
+          expires_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          amount?: number;
+          reason?: string;
+          expires_at?: string | null;
+        };
+        Relationships: [];
+      };
+      clearing_offers: {
+        Row: {
+          id: string;
+          user_id: string;
+          gives: string;
+          wants: string;
+          status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          gives: string;
+          wants: string;
+          status?: string;
+          created_at?: string;
+        };
+        Update: {
+          gives?: string;
+          wants?: string;
+          status?: string;
+        };
         Relationships: [];
       };
     };

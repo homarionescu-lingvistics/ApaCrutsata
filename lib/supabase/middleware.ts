@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { restoreSessionFromDevice } from "@/lib/auth/device-restore";
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -25,9 +26,16 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  const {
+  let {
     data: { user },
   } = await supabase.auth.getUser();
+
+  if (!user && request.cookies.get("cr_device")) {
+    const restored = await restoreSessionFromDevice(request, supabaseResponse);
+    if (restored) {
+      ({ data: { user } } = await supabase.auth.getUser());
+    }
+  }
 
   const path = request.nextUrl.pathname;
   const isAuthPage = path.startsWith("/auth");

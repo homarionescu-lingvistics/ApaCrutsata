@@ -260,12 +260,12 @@ lib/clearing       algoritm bucle P2P
 | Ziua | Livrabil | Status |
 |---|---|---|
 | **1** | Structură proiect, Supabase Auth, DB, layout Tailwind, bottom nav | ✅ Done |
-| **2** | **Acasă Feed** + carduri mari + **Mânzare** (listings CRUD) + voice stub Gemini | |
-| **3** | **Logistică** (anunțuri utilaje/transport) + **Dual Handshake** v1 | |
-| **4** | **Scofalută** (sold puncte, statistici simple) + **Cont/Anunțurile mele** | |
-| **5** | **Apa** (link ApaRahova) + KYB ANAF stub + clearing offer form | |
-| **6** | Export Instagram + Trust Score v1 + testare PWA | |
-| **7** | Push GitHub, Vercel, lansare TikTok beta | |
+| **2** | **Acasă Feed** + carduri mari + **Mânzare** (listings CRUD) + voice stub Gemini | ✅ Done |
+| **3** | **Logistică** (anunțuri utilaje/transport) + **Dual Handshake** v1 | ✅ Done |
+| **4** | **Scofalută** (sold puncte, statistici simple) + **Cont/Anunțurile mele** | ✅ Done |
+| **5** | **Apa** (ghid țărani + CTA ApaRahova) + KYB ANAF + clearing | ✅ Done |
+| **6** | Export Instagram + Trust Score v1 + testare PWA | ✅ Done |
+| **7** | Push GitHub, Vercel, lansare TikTok beta | ✅ Done |
 
 ### Sprint 2 — Motor economic
 

@@ -30,7 +30,7 @@ export function VoiceBar() {
   const router = useRouter();
   const [listening, setListening] = useState(false);
   const [processing, setProcessing] = useState(false);
-  const [hint, setHint] = useState("Spune ce vinzi sau ce cauți");
+  const [hint, setHint] = useState("Ghiont aici, Ce Doriți?");
 
   async function sendTranscript(transcript: string) {
     setProcessing(true);
@@ -43,9 +43,15 @@ export function VoiceBar() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Eroare");
-      saveListingDraft(data.draft as ListingDraft);
+      const draft = data.draft as ListingDraft;
+      saveListingDraft(draft);
       setHint("Gata! Completează și publică.");
-      router.push("/piata");
+      const logistics =
+        draft.type === "asset" || draft.type === "request" ||
+        (draft.type === "service" && /transport|remorc|tractor|mutat|livrat/i.test(
+          `${draft.title ?? ""} ${draft.description ?? ""}`
+        ));
+      router.push(logistics ? "/logistica" : "/piata");
     } catch (e) {
       setHint(e instanceof Error ? e.message : "Eroare voce");
     } finally {

@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 type Props = {
   listing: Listing;
   compact?: boolean;
+  detailBase?: string;
 };
 
-export function ListingCard({ listing, compact = false }: Props) {
+export function ListingCard({ listing, compact = false, detailBase = "/piata" }: Props) {
   const meta = typeMeta(listing.type);
   const location = formatLocation(listing);
   const price = formatPrice(listing.price_ron, listing.barter_ok);
@@ -68,7 +69,7 @@ export function ListingCard({ listing, compact = false }: Props) {
               Sună (fără tel.)
             </Button>
           )}
-          <a href={`/piata#${listing.id}`} className="flex-1">
+          <a href={`${detailBase}#${listing.id}`} className="flex-1">
             <Button type="button" variant="ghost" className="w-full">
               Detalii
             </Button>

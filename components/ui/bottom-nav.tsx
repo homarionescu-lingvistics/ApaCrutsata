@@ -37,7 +37,7 @@ export function ApaQuickLink() {
       className="inline-flex items-center gap-2 rounded-xl border border-sky-500/30 bg-sky-500/10 px-3 py-2 text-sm text-sky-200"
     >
       <Droplets className="h-4 w-4" aria-hidden />
-      Apa — Irigații (ApaRahova)
+      Apa — Irigații (ghid țărani)
     </Link>
   );
 }

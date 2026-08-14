@@ -1,13 +1,23 @@
 import { Section } from "@/components/ui/section";
-import { LoginForm } from "@/components/auth/login-form";
+import { PhoneLoginForm } from "@/components/auth/phone-login-form";
 
-export default function LoginPage() {
+const ERRORS: Record<string, string> = {
+  "link-invalid": "Link invalid. Cere un SMS nou.",
+  "link-expirat": "Link expirat (15 min). Cere un SMS nou.",
+  autentificare: "Nu am putut intra în cont. Încearcă din nou.",
+};
+
+type Props = { searchParams: { error?: string; next?: string } };
+
+export default function LoginPage({ searchParams }: Props) {
+  const hint = searchParams.error ? ERRORS[searchParams.error] ?? null : null;
+
   return (
     <Section
-      title="Autentificare"
-      description="Intră în contul crutsanimia-ron cu email și parolă."
+      title="Intră în cont"
+      description="Doar număr de telefon — fără parolă."
     >
-      <LoginForm />
+      <PhoneLoginForm errorHint={hint} />
     </Section>
   );
 }
