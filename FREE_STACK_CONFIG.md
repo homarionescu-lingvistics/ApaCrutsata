@@ -1,26 +1,43 @@
-# FREE TIER & PWA/APK CONFIGURATION OVERRIDE
+# FREE TIER & PWA/APK CONFIGURATION — CrutsanimiaRON
 
-## 1. Zero-Cost Infrastructure Rules
-- **Hosting**: Target deployment is Vercel Free Tier (domain: `https://rombusiness.vercel.app`).
-- **Database & Auth**: Supabase Free Tier.
-- **AI Engine**: Replace OpenAI API with Google Gemini API (`gemini-1.5-flash` via `@google/generative-ai`).
-  - Use `process.env.GEMINI_API_KEY`.
-  - Gemini Flash is 100% free up to 1,500 requests/day.
-- **ANAF API**: Public free endpoint for Romanian CUI checks (`https://api.anaf.ro/`).
+## 1. Zero-Cost Infrastructure
+- **Hosting**: Vercel Free Tier → `https://crutsanimiaron.vercel.app` (sau domeniu custom)
+- **Database & Auth**: Supabase Free Tier (Auth: email dev → **SMS OTP prod**)
+- **AI**: Google Gemini 1.5 Flash (`@google/generative-ai`) — `GEMINI_API_KEY`, ~1.500 req/zi free
+- **ANAF KYB**: `https://api.anaf.ro/` (public, free)
+- **Apa**: link/embed către ApaRahova (proiect separat)
 
-## 2. PWA & APK Generation Readiness
-- Configure Next.js as a Progressive Web App (PWA) using `@ducanh2912/next-pwa` or a custom `manifest.json` + `sw.js`.
-- Provide a `public/manifest.json` with:
-  - `name`: "Rombusiness - Patriotism Economic"
-  - `short_name`: "Rombusiness"
-  - `display`: "standalone" (looks and acts like a native mobile app)
-  - `theme_color`: "#0f172a"
-  - Standard app icons placeholders in `public/icons/`.
-- Ensure mobile-first touch UI (bottom navigation bar, responsive viewports, no horizontal scroll).
-- App must be ready to be passed through PWABuilder (pwabuilder.com) to output a native Android `.apk`.
+## 2. PWA & APK
+- `@ducanh2912/next-pwa` + `public/manifest.json`
+- `name`: **CrutsanimiaRON — Patriotism Economic**
+- `short_name`: **CrutsanimiaRON**
+- `display`: `standalone`
+- `theme_color`: `#0f172a`
+- Iconițe: `public/icons/` (192, 512)
+- Mobile-first: bottom nav max 5 tab-uri, touch targets ≥44px, `pb-safe`
+- APK: PWABuilder.com
 
-## 3. Environment Variables Template (`.env.local.example`)
+## 3. UX Constraints (free stack compatible)
+- Voice input: Web Speech API + Gemini post-processing (fără SDK plătit)
+- Poze: Supabase Storage free tier
+- Geo: browser Geolocation API (free)
+- SMS auth: Supabase Phone Auth (free tier limits) sau Twilio trial later
+
+## 4. Environment Variables (`.env.local.example`)
 ```env
-NEXT_PUBLIC_SUPABASE_URL=[https://your-supabase-project.supabase.co](https://your-supabase-project.supabase.co)
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-GEMINI_API_KEY=your-free-google-ai-studio-key
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+GEMINI_API_KEY=your-google-ai-studio-key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+## 5. Pagini & Rute (referință deploy)
+| Rută | Modul |
+|---|---|
+| `/` | Acasă (feed) |
+| `/piata` | Mânzare & Prăvălii |
+| `/logistica` | Logistică & Ajutor |
+| `/scofaluta` | Scofalută |
+| `/apa` | Apa / ApaRahova |
+| `/cont` | Contul meu |
+| `/investors` | Investment (EN/RO business) |

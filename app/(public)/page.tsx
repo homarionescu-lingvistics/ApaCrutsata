@@ -1,0 +1,33 @@
+import Link from "next/link";
+import { getActiveListings } from "@/lib/listings/queries";
+import { FeedList } from "@/components/feed/feed-list";
+import { ApaQuickLink } from "@/components/ui/bottom-nav";
+import { Button } from "@/components/ui/button";
+import { Section } from "@/components/ui/section";
+
+export default async function HomePage() {
+  const listings = await getActiveListings(20);
+
+  return (
+    <div className="space-y-6">
+      <header className="space-y-2">
+        <h1 className="text-2xl font-bold tracking-tight">Feed local</h1>
+        <p className="text-sm text-slate-400">
+          Anunțuri din zonă — scroll simplu, buton verde Sună.
+        </p>
+        <Link href="/piata">
+          <Button className="w-full">+ Publică la Mânzare</Button>
+        </Link>
+      </header>
+
+      <ApaQuickLink />
+
+      <Section title="Ultimele anunțuri" description={`${listings.length} active`}>
+        <FeedList
+          listings={listings}
+          emptyMessage="Niciun anunț. Apasă 🎙️ sus sau publică la Mânzare."
+        />
+      </Section>
+    </div>
+  );
+}
