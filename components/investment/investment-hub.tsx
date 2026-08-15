@@ -383,6 +383,28 @@ const QUICK_STATS: Record<LocaleKey, Array<{ label: string; value: string }>> = 
   ],
 };
 
+function normalizeFirm(firm: Partial<Firm>): Firm {
+  return {
+    name: firm.name || "Unnamed",
+    city: firm.city || "Romania",
+    sector: firm.sector || "General",
+    cui: firm.cui || "",
+    status: firm.status || "Pending",
+    riskScore: firm.riskScore ?? 50,
+    founder: firm.founder || "TBD",
+    coInvestors: firm.coInvestors ?? 0,
+    fxHedge: firm.fxHedge || "EUR",
+    minInvestment: firm.minInvestment ?? 5000,
+    equity: firm.equity ?? 2.0,
+    timeline: firm.timeline ?? 24,
+    description: firm.description || "Contact for details.",
+    contactEmail: firm.contactEmail || "contact@company.ro",
+    contactWhatsApp: firm.contactWhatsApp || "+40700000000",
+    ibanRecipient: firm.ibanRecipient || "ROXX XXXX XXXX XXXX XXXX XXXX",
+    cryptoWallet: firm.cryptoWallet || "0x0000000000000000000000000000000000000000",
+  };
+}
+
 export function InvestmentHub() {
   const [locale, setLocale] = useState<LocaleKey>("ro");
   const [region, setRegion] = useState<RegionKey>("eu");
@@ -405,9 +427,10 @@ export function InvestmentHub() {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     try {
-      const parsed = JSON.parse(raw) as Firm[];
+      const parsed = JSON.parse(raw) as Partial<Firm>[];
       if (Array.isArray(parsed) && parsed.length > 0) {
-        setFirmList((prev) => [...parsed, ...prev.filter((item) => !parsed.some((p) => p.cui === item.cui))]);
+        const normalized = parsed.map(normalizeFirm);
+        setFirmList((prev) => [...normalized, ...prev.filter((item) => !normalized.some((p) => p.cui === item.cui))]);
       }
     } catch {
       // ignore malformed local data
@@ -669,7 +692,10 @@ export function InvestmentHub() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => window.open(`https://wa.me/${firm.contactWhatsApp.replace(/\D/g, '')}`)}
+                        onClick={() => {
+                          const phone = (firm.contactWhatsApp || "+40700000000").replace(/\D/g, '');
+                          window.open(`https://wa.me/${phone}`);
+                        }}
                         className="rounded-xl border border-slate-600 px-2 py-2 text-xs font-medium text-slate-100"
                       >
                         💬
@@ -837,14 +863,17 @@ export function InvestmentHub() {
               <div className="flex gap-3">
                 <button
                   type="button"
-                  onClick={() => window.open(`mailto:${selectedFirm.contactEmail}`)}
+                  onClick={() => window.open(`mailto:${selectedFirm?.contactEmail || 'contact@company.ro'}`)}
                   className="flex-1 rounded-xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 hover:bg-emerald-600"
                 >
-                  ✉️ Email: {selectedFirm.contactEmail}
+                  ✉️ Email: {selectedFirm?.contactEmail || 'contact@company.ro'}
                 </button>
                 <button
                   type="button"
-                  onClick={() => window.open(`https://wa.me/${selectedFirm.contactWhatsApp.replace(/\D/g, '')}`)}
+                  onClick={() => {
+                    const phone = (selectedFirm?.contactWhatsApp || "+40700000000").replace(/\D/g, '');
+                    window.open(`https://wa.me/${phone}`);
+                  }}
                   className="flex-1 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 font-semibold text-emerald-200 hover:bg-emerald-500/20"
                 >
                   💬 WhatsApp
