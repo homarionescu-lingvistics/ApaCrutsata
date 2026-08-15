@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS business_requests (
   neighborhood TEXT NOT NULL,
   upvotes_count INT DEFAULT 1,
   ai_insights_summary JSONB DEFAULT '{}',
-  created_by UUID REFERENCES auth.users ON DELETE SET NULL,
+  created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL DEFAULT auth.uid(),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -28,9 +28,15 @@ CREATE TABLE IF NOT EXISTS business_post_mortems (
   failure_reasons TEXT NOT NULL,
   pricing_strategy_notes TEXT,
   min_capital_required NUMERIC,
-  created_by UUID REFERENCES auth.users ON DELETE SET NULL,
+  created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL DEFAULT auth.uid(),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+ALTER TABLE public.business_requests
+  ADD COLUMN IF NOT EXISTS created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL DEFAULT auth.uid();
+
+ALTER TABLE public.business_post_mortems
+  ADD COLUMN IF NOT EXISTS created_by UUID REFERENCES auth.users(id) ON DELETE SET NULL DEFAULT auth.uid();
 
 CREATE TABLE IF NOT EXISTS group_deals (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
