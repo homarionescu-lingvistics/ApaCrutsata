@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/logistica",
     "/scofaluta",
     "/apa",
+    "/cereri",
     "/beta",
     "/investors",
     "/auth/login",

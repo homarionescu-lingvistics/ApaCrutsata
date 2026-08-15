@@ -12,14 +12,17 @@ import { ClearingOfferForm } from "@/components/scofaluta/clearing-offer-form";
 import { ClearingList } from "@/components/scofaluta/clearing-list";
 import { PointsCard } from "@/components/scofaluta/points-card";
 import { PriceStats } from "@/components/scofaluta/price-stats";
+import { VitalsGrid } from "@/components/scofaluta/vitals-grid";
+import { getVitals } from "@/lib/scofaluta/vitals";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 
 export default async function ScofalutaPage() {
-  const [{ user, profile }, stats, offers] = await Promise.all([
+  const [{ user, profile }, stats, offers, vitals] = await Promise.all([
     getCurrentProfile(),
     getPriceStats(),
     getOpenClearingOffers(),
+    getVitals(),
   ]);
   const ledger = user ? await getUserLedger(user.id) : [];
   const balance = user ? liveBalance(ledger) : profile?.ron_local_balance ?? 0;

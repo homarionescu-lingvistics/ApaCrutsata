@@ -5,6 +5,8 @@ export type AnafFirm = {
   vatPayer: boolean;
 };
 
+const ANAF_URL = "https://webservicesp.anaf.ro/api/PlatitorTvaRest/v9/tva";
+
 function digitsCui(raw: string) {
   const d = raw.replace(/\D/g, "");
   if (d.length < 2 || d.length > 10) return null;
@@ -13,37 +15,45 @@ function digitsCui(raw: string) {
 
 export async function lookupAnaf(rawCui: string): Promise<AnafFirm | { error: string }> {
   const cui = digitsCui(rawCui);
-  if (!cui) return { error: "CUI invalid. Ex: RO12345678" };
+  if (!cui) return { error: "CUI invalid. Ex: RO14399840" };
 
   const today = new Date().toISOString().slice(0, 10);
-  const url = "https://webservicesp.anaf.ro/PlatitorTvaRest/api/v8/ws/tva";
 
   try {
-    const res = await fetch(url, {
+    const res = await fetch(ANAF_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "User-Agent": "CrutsanimiaRON/1.0 (KYB IMM)",
+      },
       body: JSON.stringify([{ cui: Number(cui), data: today }]),
-      next: { revalidate: 0 },
+      cache: "no-store",
     });
-    if (!res.ok) return { error: "ANAF nu a răspuns. Încearcă mai târziu." };
 
     const json = (await res.json()) as {
       found?: Array<{
         date_generale?: { cui?: number; denumire?: string; adresa?: string };
         inregistrare_scop_Tva?: { scpTVA?: boolean };
       }>;
+      notFound?: number[];
     };
-    const row = json.found?.[0];
-    const g = row?.date_generale;
-    if (!g?.denumire) return { error: "CUI-ul nu e în registrul ANAF." };
 
-    return {
-      cui,
-      name: g.denumire,
-      address: g.adresa ?? null,
-      vatPayer: Boolean(row?.inregistrare_scop_Tva?.scpTVA),
-    };
+    const g = json.found?.[0]?.date_generale;
+    if (g?.denumire) {
+      return {
+        cui,
+        name: g.denumire,
+        address: g.adresa ?? null,
+        vatPayer: Boolean(json.found?.[0]?.inregistrare_scop_Tva?.scpTVA),
+      };
+    }
+
+    if (res.status === 404 || json.notFound?.length) {
+      return { error: "CUI-ul nu e în registrul ANAF (verifică cifrele)." };
+    }
+    return { error: `ANAF a răspuns ${res.status}. Reîncearcă.` };
   } catch {
-    return { error: "Nu am putut contacta ANAF." };
+    return { error: "Nu am putut contacta ANAF (rețea)." };
   }
 }

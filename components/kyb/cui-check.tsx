@@ -32,7 +32,7 @@ export function CuiCheck({ cui, verified }: Props) {
         label="CUI firmă"
         name="cui"
         defaultValue={cui ?? ""}
-        placeholder="RO12345678"
+        placeholder="RO14399840"
       />
       {error ? (
         <p className="rounded-xl bg-red-500/10 px-3 py-2 text-sm text-red-300">{error}</p>

@@ -33,6 +33,12 @@ export default async function HomePage() {
       </header>
 
       <ApaQuickLink />
+      <Link
+        href="/cereri"
+        className="block rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200"
+      >
+        Ce lipsește în cartier? Votează / lecții din faliment
+      </Link>
 
       <Section title="Ultimele anunțuri" description={`${listings.length} active`}>
         <FeedList
