@@ -33,10 +33,10 @@ export function ProfileForm({ profile }: { profile: Profile | null }) {
           defaultValue={profile?.full_name ?? ""}
         />
         <Input
-          label="Numele firmei / brandului"
+          label="Numele firmei / brandului (opțional)"
           name="company_name"
           defaultValue={profile?.company_name ?? ""}
-          placeholder="Nume firmă sau brand"
+          placeholder="Lasă necompletat dacă ești cetățean privat"
         />
         <Select
           label="Rol"
