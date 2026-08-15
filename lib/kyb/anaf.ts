@@ -17,7 +17,9 @@ export async function lookupAnaf(rawCui: string): Promise<AnafFirm | { error: st
   const cui = digitsCui(rawCui);
   if (!cui) return { error: "CUI invalid. Ex: RO14399840" };
 
-  const today = new Date().toISOString().slice(0, 10);
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Bucharest",
+  }).format(new Date());
 
   try {
     const res = await fetch(ANAF_URL, {
@@ -39,13 +41,14 @@ export async function lookupAnaf(rawCui: string): Promise<AnafFirm | { error: st
       notFound?: number[];
     };
 
-    const g = json.found?.[0]?.date_generale;
+    const firm = json.found?.[0];
+    const g = firm?.date_generale;
     if (g?.denumire) {
       return {
         cui,
         name: g.denumire,
         address: g.adresa ?? null,
-        vatPayer: Boolean(json.found?.[0]?.inregistrare_scop_Tva?.scpTVA),
+        vatPayer: Boolean(firm?.inregistrare_scop_Tva?.scpTVA ?? false),
       };
     }
 

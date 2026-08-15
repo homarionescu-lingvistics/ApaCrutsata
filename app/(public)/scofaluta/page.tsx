@@ -57,6 +57,10 @@ export default async function ScofalutaPage() {
         <PriceStats stats={stats} />
       </Section>
 
+      <Section title="Vitale economice" description="Indicatori de circulație și localizare">
+        <VitalsGrid vitals={vitals} />
+      </Section>
+
       <Section title="Circuit P2P" description="Eu dau — tu dai. Fără cash.">
         {user ? <ClearingOfferForm /> : (
           <p className="text-sm text-slate-400">Autentifică-te ca să oferi schimb.</p>

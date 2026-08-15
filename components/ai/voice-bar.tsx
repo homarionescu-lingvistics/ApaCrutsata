@@ -70,7 +70,7 @@ export function VoiceBar() {
   function startListening() {
     const SR = getSpeechRecognition();
     if (!SR) {
-      setStatus("Microfonul merge în Chrome/Safari pe telefon. Aici scrie în câmp.");
+      setStatus("Microfonul funcționează în Chrome/Safari pe telefon. Până atunci poți scrie în câmp.");
       return;
     }
     const rec = new SR();
@@ -115,7 +115,9 @@ export function VoiceBar() {
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Ghiont aici, Ce Doriți?"
+          placeholder="Scrie aici ce cauți…"
+          aria-label="Caută sau descrie oferta"
+          autoComplete="off"
           disabled={busy}
           className="h-11 min-w-0 flex-1 bg-transparent text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none"
         />
