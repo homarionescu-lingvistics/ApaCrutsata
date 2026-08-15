@@ -63,7 +63,19 @@ export function ClearingList({ offers, userId, matchIds }: Props) {
                     Retrage
                   </Button>
                 </form>
-              ) : null}
+              ) : (
+                o.contact_phone ? (
+                  <a href={`tel:${o.contact_phone.replace(/\s+/g, "")}`}>
+                    <Button type="button" className="shrink-0" disabled={pending}>
+                      Contactează / Schimbă
+                    </Button>
+                  </a>
+                ) : (
+                  <Button type="button" className="shrink-0" variant="ghost" disabled>
+                    Fără contact
+                  </Button>
+                )
+              )}
             </div>
           </li>
         );

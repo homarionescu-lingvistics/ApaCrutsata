@@ -6,6 +6,7 @@ import {
   markTokenUsed,
   registerTrustedDevice,
 } from "@/lib/auth/phone-actions";
+import { ensureSupabaseConfig } from "@/lib/supabase/config";
 
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
@@ -23,21 +24,22 @@ export async function GET(request: NextRequest) {
   const response = NextResponse.redirect(new URL(next, request.url));
 
   try {
+    const { url, anonKey, isConfigured } = ensureSupabaseConfig();
+    if (!isConfigured) {
+      return NextResponse.redirect(new URL("/auth/login?error=config", request.url));
+    }
+
     const { email, password, userId } = await ensurePhoneUser(row.phone);
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll: () => request.cookies.getAll(),
-          setAll: (cookiesToSet) => {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options)
-            );
-          },
+    const supabase = createServerClient(url, anonKey, {
+      cookies: {
+        getAll: () => request.cookies.getAll(),
+        setAll: (cookiesToSet) => {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options)
+          );
         },
-      }
-    );
+      },
+    });
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;

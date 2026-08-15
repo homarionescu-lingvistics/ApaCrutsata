@@ -25,6 +25,7 @@ export function ClearingOfferForm() {
     >
       <Input label="Dau" name="gives" required placeholder="fân / 2 ore muncă / remorcă" />
       <Input label="Caut" name="wants" required placeholder="motorină / cartofi / transport" />
+      <Input label="Telefon de contact" name="contact_phone" placeholder="07xx xxx xxx" />
       {error ? (
         <p className="rounded-xl bg-red-500/10 px-3 py-2 text-sm text-red-300">{error}</p>
       ) : null}

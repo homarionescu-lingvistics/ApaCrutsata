@@ -5,6 +5,7 @@ export type UserRole = "citizen" | "entrepreneur" | "producer" | "transporter";
 export type Profile = {
   id: string;
   full_name: string | null;
+  company_name: string | null;
   role: UserRole | null;
   cui_number: string | null;
   is_verified_sme: boolean;
@@ -55,6 +56,7 @@ export type Database = {
         Insert: {
           id: string;
           full_name?: string | null;
+          company_name?: string | null;
           role?: UserRole | null;
           cui_number?: string | null;
           is_verified_sme?: boolean;
@@ -65,6 +67,7 @@ export type Database = {
         };
         Update: {
           full_name?: string | null;
+          company_name?: string | null;
           role?: UserRole | null;
           cui_number?: string | null;
           is_verified_sme?: boolean;
@@ -246,6 +249,7 @@ export type Database = {
           user_id: string;
           gives: string;
           wants: string;
+          contact_phone: string | null;
           status: string;
           created_at: string;
         };
@@ -254,12 +258,14 @@ export type Database = {
           user_id: string;
           gives: string;
           wants: string;
+          contact_phone?: string | null;
           status?: string;
           created_at?: string;
         };
         Update: {
           gives?: string;
           wants?: string;
+          contact_phone?: string | null;
           status?: string;
         };
         Relationships: [];

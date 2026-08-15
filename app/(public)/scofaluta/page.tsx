@@ -69,6 +69,13 @@ export default async function ScofalutaPage() {
           <ClearingList offers={offers} userId={user?.id ?? null} matchIds={matchIds} />
         </div>
       </Section>
+
+      <Link
+        href="/investment"
+        className="block rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-center text-sm font-medium text-emerald-200"
+      >
+        Investiții & Micro-Capital → vezi hub-ul de finanțare
+      </Link>
     </div>
   );
 }

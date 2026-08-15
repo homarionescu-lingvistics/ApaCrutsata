@@ -77,6 +77,7 @@ export async function signOut() {
 
 export async function updateProfile(formData: FormData) {
   const fullName = formString(formData, "full_name");
+  const companyName = formString(formData, "company_name");
   const role = formString(formData, "role") as UserRole;
   const cuiNumber = formString(formData, "cui_number") || null;
 
@@ -93,11 +94,17 @@ export async function updateProfile(formData: FormData) {
 
   const { error } = await supabase
     .from("profiles")
-    .update({ full_name: fullName || null, role, cui_number: cuiNumber })
+    .update({
+      full_name: fullName || null,
+      company_name: companyName || null,
+      role,
+      cui_number: cuiNumber,
+    })
     .eq("id", user.id);
 
   if (error) return { error: error.message };
 
   revalidatePath("/cont");
+  revalidatePath("/dashboard");
   return { success: true };
 }

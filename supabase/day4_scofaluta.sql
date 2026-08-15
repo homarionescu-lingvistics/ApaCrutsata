@@ -21,10 +21,13 @@ CREATE TABLE IF NOT EXISTS clearing_offers (
   user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
   gives TEXT NOT NULL,
   wants TEXT NOT NULL,
+  contact_phone TEXT,
   status TEXT NOT NULL DEFAULT 'open'
     CHECK (status IN ('open', 'matched', 'closed')),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+ALTER TABLE clearing_offers ADD COLUMN IF NOT EXISTS contact_phone TEXT;
 
 CREATE INDEX IF NOT EXISTS clearing_offers_open_idx
   ON clearing_offers (status, created_at DESC);

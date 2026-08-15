@@ -12,6 +12,7 @@ export async function createClearingOffer(formData: FormData) {
 
   const gives = String(formData.get("gives") ?? "").trim();
   const wants = String(formData.get("wants") ?? "").trim();
+  const contactPhone = String(formData.get("contact_phone") ?? "").trim();
   if (gives.length < 2 || wants.length < 2) {
     return { error: "Scrie ce dai și ce cauți (min. 2 caractere)." };
   }
@@ -20,6 +21,7 @@ export async function createClearingOffer(formData: FormData) {
     user_id: user.id,
     gives,
     wants,
+    contact_phone: contactPhone || null,
     status: "open",
   });
   if (error) return { error: error.message };

@@ -3,6 +3,7 @@ export type ClearingOffer = {
   user_id: string;
   gives: string;
   wants: string;
+  contact_phone: string | null;
   status: "open" | "matched" | "closed";
   created_at: string;
 };

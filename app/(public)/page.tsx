@@ -40,6 +40,26 @@ export default async function HomePage() {
         Ce lipsește în cartier? Votează / lecții din faliment
       </Link>
 
+      <div className="grid gap-2 sm:grid-cols-2">
+        <Link href="/strunga" className="rounded-xl border border-slate-700 bg-slate-900/80 p-3 text-sm text-slate-100">
+          Strungă transport
+        </Link>
+        <Link href="/investment" className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-200">
+          Investment Hub
+        </Link>
+      </div>
+
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+        <p className="text-[10px] uppercase tracking-[0.2em] text-emerald-400">Website-uri locale</p>
+        <h2 className="mt-2 text-lg font-semibold text-slate-100">Website-uri și soluții românești</h2>
+        <ul className="mt-3 space-y-2 text-sm text-slate-300">
+          <li><a className="text-emerald-300 underline" href="https://www.listafirme.ro" target="_blank" rel="noreferrer">ListaFirme.ro</a></li>
+          <li><a className="text-emerald-300 underline" href="https://www.risco.ro" target="_blank" rel="noreferrer">RisCo</a></li>
+          <li><a className="text-emerald-300 underline" href="https://www.onrc.ro" target="_blank" rel="noreferrer">ONRC</a></li>
+          <li><a className="text-emerald-300 underline" href="https://www.anaf.ro" target="_blank" rel="noreferrer">ANAF</a></li>
+        </ul>
+      </div>
+
       <Section title="Ultimele anunțuri" description={`${listings.length} active`}>
         <FeedList
           listings={listings}

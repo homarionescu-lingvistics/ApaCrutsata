@@ -77,6 +77,54 @@ export default async function LogisticaPage() {
         </Section>
       ) : null}
 
+      <Section title="Rute active" description="Coordonare logistică pe hartă">
+        <div className="grid gap-3 md:grid-cols-[1.2fr_1fr]">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+            <p className="text-[10px] uppercase tracking-[0.2em] text-emerald-400">Hartă rutelor</p>
+            <div className="mt-4 grid grid-cols-4 gap-2 text-center text-[11px] text-slate-300">
+              {[
+                "Cluj",
+                "Brașov",
+                "Timișoara",
+                "Iași",
+                "București",
+                "Constanța",
+                "Craiova",
+                "Sibiu",
+              ].map((city) => (
+                <span key={city} className="rounded-full border border-slate-700 bg-slate-800 px-2 py-1">
+                  {city}
+                </span>
+              ))}
+            </div>
+            <div className="mt-4 flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-200">
+              <span>Flux principal</span>
+              <span>Cluj → București</span>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            {[
+              { from: "Cluj", to: "București", eta: "36h", cargo: "Utilaje agricole" },
+              { from: "Iași", to: "Constanța", eta: "18h", cargo: "Marfă frigorifică" },
+              { from: "Sibiu", to: "Craiova", eta: "24h", cargo: "Piese / materiale" },
+            ].map((route) => (
+              <div key={`${route.from}-${route.to}`} className="rounded-2xl border border-slate-800 bg-slate-900/80 p-3">
+                <div className="flex items-center justify-between gap-2 text-sm font-medium text-slate-100">
+                  <span>{route.from}</span>
+                  <span className="text-emerald-300">→</span>
+                  <span>{route.to}</span>
+                </div>
+                <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400">
+                  <span>{route.cargo}</span>
+                  <span>{route.eta}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
       <Section title="Disponibil în zonă" description={`${listings.length} anunțuri`}>
         <FeedList
           listings={listings}

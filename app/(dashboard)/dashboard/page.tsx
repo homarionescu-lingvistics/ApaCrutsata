@@ -18,11 +18,20 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-bold">Contul meu</h1>
-        <p className="text-sm text-slate-400">
-          {profile?.phone ?? user?.email ?? "Sesiune activă"}
+      <header className="space-y-2 rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+        <p className="text-[10px] uppercase tracking-[0.24em] text-emerald-400">Profil</p>
+        <h1 className="text-2xl font-bold">{profile?.full_name ?? user?.email ?? "Utilizator"}</h1>
+        <p className="text-sm text-slate-300">
+          {profile?.company_name ?? "Fără firmă înregistrată"}
         </p>
+        <div className="flex flex-wrap gap-2 text-xs text-slate-300">
+          <span className="rounded-full border border-slate-700 bg-slate-800 px-2 py-1">
+            {profile?.role ?? "citizen"}
+          </span>
+          <span className="rounded-full border border-slate-700 bg-slate-800 px-2 py-1">
+            {profile?.phone ?? user?.email ?? "Sesiune activă"}
+          </span>
+        </div>
       </header>
 
       <TrustMeter score={profile?.trust_score ?? 50} />
