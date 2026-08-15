@@ -92,14 +92,26 @@ export async function updateProfile(formData: FormData) {
 
   if (!user) return { error: "Neautentificat." };
 
+  // Build update object with only non-empty fields
+  const updateData: {
+    full_name: string | null;
+    role: UserRole;
+    cui_number: string | null;
+    company_name?: string;
+  } = {
+    full_name: fullName || null,
+    role,
+    cui_number: cuiNumber,
+  };
+
+  // Only add company_name if provided
+  if (companyName) {
+    updateData.company_name = companyName;
+  }
+
   const { error } = await supabase
     .from("profiles")
-    .update({
-      full_name: fullName || null,
-      company_name: companyName || null,
-      role,
-      cui_number: cuiNumber,
-    })
+    .update(updateData)
     .eq("id", user.id);
 
   if (error) return { error: error.message };

@@ -13,6 +13,14 @@ const SEED_FIRMS = [
     founder: "Ion Popescu",
     coInvestors: 3,
     fxHedge: "EUR",
+    minInvestment: 5000,
+    equity: 2.5,
+    timeline: 24,
+    description: "Sustainable organic farming with export to EU markets.",
+    contactEmail: "ion@agricola-verde.ro",
+    contactWhatsApp: "+40721234567",
+    ibanRecipient: "RO89ABRORD123XXXX",
+    cryptoWallet: "0x1234...abc (USDC/Polygon)",
   },
   {
     name: "Moldova Timber Craft",
@@ -24,6 +32,14 @@ const SEED_FIRMS = [
     founder: "Maria Ionescu",
     coInvestors: 2,
     fxHedge: "EUR",
+    minInvestment: 3000,
+    equity: 1.5,
+    timeline: 18,
+    description: "Handcrafted furniture for German and Austrian markets.",
+    contactEmail: "maria@timbercrafts.ro",
+    contactWhatsApp: "+40722345678",
+    ibanRecipient: "RO89ABRORD456XXXX",
+    cryptoWallet: "0x5678...def (USDC/Polygon)",
   },
   {
     name: "EcoLogistics Nord",
@@ -35,6 +51,14 @@ const SEED_FIRMS = [
     founder: "Andrei Georgescu",
     coInvestors: 5,
     fxHedge: "EUR",
+    minInvestment: 10000,
+    equity: 3.0,
+    timeline: 36,
+    description: "Cold chain logistics for fresh produce distribution across Eastern Europe.",
+    contactEmail: "andrei@ecologistics.ro",
+    contactWhatsApp: "+40723456789",
+    ibanRecipient: "RO89ABRORD789XXXX",
+    cryptoWallet: "0x9abc...ghi (USDC/Polygon)",
   },
   {
     name: "Fructe de la Poartă",
@@ -46,6 +70,14 @@ const SEED_FIRMS = [
     founder: "Cristina Vasile",
     coInvestors: 1,
     fxHedge: "EUR",
+    minInvestment: 2500,
+    equity: 1.0,
+    timeline: 12,
+    description: "Direct-to-consumer fruit and vegetable box delivery service.",
+    contactEmail: "cristina@fructe-poarta.ro",
+    contactWhatsApp: "+40724567890",
+    ibanRecipient: "RO89ABRORD012XXXX",
+    cryptoWallet: "0xdef0...jkl (USDC/Polygon)",
   },
   {
     name: "GreenPack RO",
@@ -57,6 +89,14 @@ const SEED_FIRMS = [
     founder: "Bogdan Mihai",
     coInvestors: 4,
     fxHedge: "EUR",
+    minInvestment: 7500,
+    equity: 2.0,
+    timeline: 20,
+    description: "Eco-friendly packaging solutions for food and beverage companies.",
+    contactEmail: "bogdan@greenpack.ro",
+    contactWhatsApp: "+40725678901",
+    ibanRecipient: "RO89ABRORD345XXXX",
+    cryptoWallet: "0xjkl1...mno (USDC/Polygon)",
   },
   {
     name: "Drumuri și Vale",
@@ -68,6 +108,14 @@ const SEED_FIRMS = [
     founder: "Vladimir Nistor",
     coInvestors: 2,
     fxHedge: "EUR",
+    minInvestment: 15000,
+    equity: 4.0,
+    timeline: 48,
+    description: "Rural infrastructure development and renovation projects.",
+    contactEmail: "vladimir@drumurivale.ro",
+    contactWhatsApp: "+40726789012",
+    ibanRecipient: "RO89ABRORD678XXXX",
+    cryptoWallet: "0xmno2...pqr (USDC/Polygon)",
   },
 ];
 
@@ -87,6 +135,14 @@ type Firm = {
   founder: string;
   coInvestors: number;
   fxHedge: string;
+  minInvestment: number;
+  equity: number;
+  timeline: number;
+  description: string;
+  contactEmail: string;
+  contactWhatsApp: string;
+  ibanRecipient: string;
+  cryptoWallet: string;
 };
 
 const LANGUAGE_LABELS: Record<LocaleKey, string> = {
@@ -335,6 +391,7 @@ export function InvestmentHub() {
   const [firmList, setFirmList] = useState<Firm[]>(SEED_FIRMS);
   const [isLoading, setIsLoading] = useState(false);
   const [resultMessage, setResultMessage] = useState<string | null>(null);
+  const [selectedFirm, setSelectedFirm] = useState<Firm | null>(null);
   const [form, setForm] = useState({
     name: "",
     city: "",
@@ -403,6 +460,14 @@ export function InvestmentHub() {
         founder: "TBD",
         coInvestors: 0,
         fxHedge: "EUR",
+        minInvestment: 5000,
+        equity: 2.0,
+        timeline: 24,
+        description: "Company under review. Contact founder for details.",
+        contactEmail: "contact@company.ro",
+        contactWhatsApp: "+40700000000",
+        ibanRecipient: "ROXX XXXX XXXX XXXX XXXX XXXX",
+        cryptoWallet: "0x0000000000000000000000000000000000000000",
       };
 
       setFirmList((prev) => {
@@ -436,6 +501,14 @@ export function InvestmentHub() {
       founder: "TBD",
       coInvestors: 0,
       fxHedge: "EUR",
+      minInvestment: 5000,
+      equity: 2.0,
+      timeline: 24,
+      description: "New company - contact founder for investment details.",
+      contactEmail: "contact@company.ro",
+      contactWhatsApp: "+40700000000",
+      ibanRecipient: "ROXX XXXX XXXX XXXX XXXX XXXX",
+      cryptoWallet: "0x0000000000000000000000000000000000000000",
     };
     const next = [nextFirm, ...firmList.filter((item) => item.cui !== nextFirm.cui)];
     setFirmList(next);
@@ -553,27 +626,53 @@ export function InvestmentHub() {
                 filtered.map((firm) => (
                   <article key={`${firm.cui}-${firm.name}`} className="rounded-2xl border border-slate-700 bg-slate-950/70 p-3">
                     <div className="flex items-center justify-between gap-2">
-                      <h3 className="font-semibold text-slate-100">{firm.name}</h3>
-                      <span className={`rounded-full px-2 py-1 text-[10px] font-medium uppercase tracking-[0.12em] ${firm.riskScore >= 70 ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-300" : "border border-amber-500/30 bg-amber-500/10 text-amber-300"}`}>
+                      <div>
+                        <h3 className="font-semibold text-slate-100">{firm.name}</h3>
+                        <p className="mt-1 text-xs text-slate-400">{firm.description}</p>
+                      </div>
+                      <span className={`rounded-full px-2 py-1 text-[10px] font-medium uppercase tracking-[0.12em] whitespace-nowrap ${firm.riskScore >= 70 ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-300" : "border border-amber-500/30 bg-amber-500/10 text-amber-300"}`}>
                         Risk: {firm.riskScore}%
                       </span>
                     </div>
-                    <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-300">
-                      <span className="rounded-full border border-slate-700 px-2 py-1">{firm.city}</span>
-                      <span className="rounded-full border border-slate-700 px-2 py-1">{firm.sector}</span>
-                      <span className="rounded-full border border-slate-700 px-2 py-1">Founder: {firm.founder}</span>
-                    </div>
-                    <div className="mt-3 flex gap-2 text-xs text-slate-400">
-                      <span>👥 {firm.coInvestors} co-investors</span>
-                      <span>💱 {firm.fxHedge}</span>
+                    <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                      <div className="rounded-lg border border-slate-700 bg-slate-900/50 p-2">
+                        <p className="text-slate-400">Min. Investment</p>
+                        <p className="font-semibold text-emerald-300">€{firm.minInvestment.toLocaleString()}</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-700 bg-slate-900/50 p-2">
+                        <p className="text-slate-400">Equity</p>
+                        <p className="font-semibold text-emerald-300">{firm.equity}%</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-700 bg-slate-900/50 p-2">
+                        <p className="text-slate-400">Timeline</p>
+                        <p className="font-semibold text-emerald-300">{firm.timeline} months</p>
+                      </div>
+                      <div className="rounded-lg border border-slate-700 bg-slate-900/50 p-2">
+                        <p className="text-slate-400">Co-investors</p>
+                        <p className="font-semibold text-emerald-300">👥 {firm.coInvestors}</p>
+                      </div>
                     </div>
                     <div className="mt-3 flex gap-2">
                       <button
                         type="button"
-                        onClick={() => setForm((prev) => ({ ...prev, name: firm.name, city: firm.city, sector: firm.sector, cui: firm.cui }))}
-                        className="rounded-xl border border-slate-600 px-3 py-2 text-xs font-medium text-slate-100"
+                        onClick={() => setSelectedFirm(firm)}
+                        className="flex-1 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-xs font-medium text-emerald-200 hover:bg-emerald-500/20"
                       >
-                        Select
+                        View Details
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => window.open(`mailto:${firm.contactEmail}`)}
+                        className="rounded-xl border border-slate-600 px-2 py-2 text-xs font-medium text-slate-100"
+                      >
+                        ✉️
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => window.open(`https://wa.me/${firm.contactWhatsApp.replace(/\D/g, '')}`)}
+                        className="rounded-xl border border-slate-600 px-2 py-2 text-xs font-medium text-slate-100"
+                      >
+                        💬
                       </button>
                     </div>
                   </article>
@@ -628,6 +727,132 @@ export function InvestmentHub() {
             {resultMessage ? <p className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200">{resultMessage}</p> : null}
           </div>
         </section>
+      ) : null}
+
+      {selectedFirm ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-2xl rounded-3xl border border-emerald-500/30 bg-slate-900 p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-white">{selectedFirm.name}</h2>
+                <p className="mt-1 text-sm text-slate-300">Founded by {selectedFirm.founder} | {selectedFirm.city}, {selectedFirm.sector}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedFirm(null)}
+                className="rounded-full border border-slate-700 bg-slate-950 p-2 text-slate-300 hover:text-white"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-semibold text-white mb-2">About the Company</h3>
+                <p className="text-sm text-slate-300">{selectedFirm.description}</p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-4">
+                  <p className="text-xs uppercase tracking-widest text-slate-400">Investment Terms</p>
+                  <div className="mt-3 space-y-2">
+                    <div>
+                      <p className="text-xs text-slate-400">Min. Investment</p>
+                      <p className="font-bold text-emerald-300">€{selectedFirm.minInvestment.toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400">Equity Offered</p>
+                      <p className="font-bold text-emerald-300">{selectedFirm.equity}%</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400">Timeline</p>
+                      <p className="font-bold text-emerald-300">{selectedFirm.timeline} months</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4">
+                  <p className="text-xs uppercase tracking-widest text-slate-400">Risk & Credibility</p>
+                  <div className="mt-3 space-y-2">
+                    <div>
+                      <p className="text-xs text-slate-400">Risk Score</p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <div className="h-2 w-full rounded-full bg-slate-700">
+                          <div
+                            className={`h-full rounded-full ${selectedFirm.riskScore >= 70 ? "bg-emerald-500" : "bg-amber-500"}`}
+                            style={{ width: `${selectedFirm.riskScore}%` }}
+                          />
+                        </div>
+                        <span className="font-bold text-sm">{selectedFirm.riskScore}%</span>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400">Co-investors</p>
+                      <p className="font-bold text-emerald-300">👥 {selectedFirm.coInvestors} confirmed</p>
+                    </div>
+                    <div>
+                      <p className="text-xs text-slate-400">FX Hedging</p>
+                      <p className="font-bold text-slate-200">💱 {selectedFirm.fxHedge}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-semibold text-white">Payment & Contact Methods</h3>
+                <div className="rounded-2xl border border-slate-700 bg-slate-950/70 p-4 space-y-3">
+                  <div>
+                    <p className="text-xs text-slate-400 mb-1">IBAN (Bank Transfer)</p>
+                    <p className="font-mono text-sm text-slate-200 break-all">{selectedFirm.ibanRecipient}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 mb-1">Crypto Wallet (USDC/Polygon)</p>
+                    <p className="font-mono text-sm text-slate-200 break-all">{selectedFirm.cryptoWallet}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="font-semibold text-white">How to Invest</h3>
+                <ol className="space-y-2 text-sm text-slate-300">
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 rounded-full bg-emerald-500 text-slate-950 w-6 h-6 flex items-center justify-center font-bold">1</span>
+                    <span>Contact the founder via email or WhatsApp to discuss terms</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 rounded-full bg-emerald-500 text-slate-950 w-6 h-6 flex items-center justify-center font-bold">2</span>
+                    <span>Decide investment amount and method (bank transfer, crypto, or other)</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 rounded-full bg-emerald-500 text-slate-950 w-6 h-6 flex items-center justify-center font-bold">3</span>
+                    <span>Sign investment agreement and transfer funds to provided account</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="flex-shrink-0 rounded-full bg-emerald-500 text-slate-950 w-6 h-6 flex items-center justify-center font-bold">4</span>
+                    <span>Receive equity certificate & regular updates on company performance</span>
+                  </li>
+                </ol>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => window.open(`mailto:${selectedFirm.contactEmail}`)}
+                  className="flex-1 rounded-xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 hover:bg-emerald-600"
+                >
+                  ✉️ Email: {selectedFirm.contactEmail}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.open(`https://wa.me/${selectedFirm.contactWhatsApp.replace(/\D/g, '')}`)}
+                  className="flex-1 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 font-semibold text-emerald-200 hover:bg-emerald-500/20"
+                >
+                  💬 WhatsApp
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : null}
     </div>
   );

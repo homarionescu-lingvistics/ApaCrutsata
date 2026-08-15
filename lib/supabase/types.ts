@@ -48,6 +48,42 @@ export type GroupDeal = {
   created_by: string | null;
 };
 
+export type InvestmentOpportunity = {
+  id: string;
+  company_name: string;
+  founder_name: string;
+  sector: string;
+  city: string;
+  description: string | null;
+  min_investment: number;
+  max_investment: number;
+  equity_percentage: number | null;
+  timeline_months: number | null;
+  risk_score: number;
+  co_investors_count: number;
+  iban_recipient: string | null;
+  crypto_wallet: string | null;
+  contact_email: string | null;
+  contact_phone: string | null;
+  contact_whatsapp: string | null;
+  status: "active" | "funded" | "closed" | "paused";
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type InvestmentSubscription = {
+  id: string;
+  opportunity_id: string;
+  investor_id: string;
+  amount_invested: number;
+  investment_type: "equity" | "loan" | "revenue_share" | "crypto";
+  status: "pending" | "confirmed" | "cancelled";
+  payment_method: string | null;
+  transaction_hash: string | null;
+  created_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
