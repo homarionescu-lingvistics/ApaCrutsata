@@ -1,4 +1,4 @@
-# CrutsanimiaRON MVP
+# CruțăLeul MVP
 
 PWA de economie locală rezilientă pentru România — stack **100% free**. Motor P2P care funcționează indiferent de context politic.
 
