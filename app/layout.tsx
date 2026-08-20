@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   description:
     "Economie locală rezilientă: Mânzare, Logistică, Scofalută, Apa — P2P pentru România.",
   manifest: "/manifest.json",
+  verification: {
+    google: "<meta name="google-site-verification" content="2f5vTT-H2dBALWquYc9ni3Vi5EQPkUl7bEt6f1PbhCc" />",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
