@@ -15,16 +15,16 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CrutsanimiaRON - Patriotism Economic",
+  title: "Cruțănomie - Patriotism Economic",
   description:
-    "Economie locală rezilientă: Mânzare, Logistică, Scofalută, Apa — P2P pentru România.",
+    "Economie locală rezilientă: Mânzare, Strungă, Scofalută, Apa — P2P pentru România.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "CrutsanimiaRON",
+    title: "CruțăLeul",
   },
-  applicationName: "CrutsanimiaRON",
+  applicationName: "CruțăLeul",
 };
 
 export const viewport: Viewport = {
