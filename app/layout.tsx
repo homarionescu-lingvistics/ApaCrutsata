@@ -28,7 +28,7 @@ export const metadata: Metadata = {
      {
        url: "/opengraph-image.jpg", // Calea către imaginea din folderul tău public (ex: public/og-image.png)
        width: 1200,
-       height: 628,
+       height: 630,
        alt: "CruțăLeula Previzualizare",
      },
    ],
