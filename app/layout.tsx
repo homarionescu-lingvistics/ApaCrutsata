@@ -19,6 +19,22 @@ export const metadata: Metadata = {
   description:
     "Economie locală rezilientă: Mânzare, Strungă, Scofalută, Apa — P2P pentru România.",
   manifest: "/manifest.json",
+  openGraph: {
+   title: "Cruțănomia-RON - Patriotism Economic",
+   description: "Economie locală rezilientă: Mânzare, Logistică, Scofaluță, Apă - P2P pentru România.",
+   url: "https://xn--cruleula-17a31z.vercel.app/", // sau domeniul tău cu xn-- dacă vrei siguranță maximă
+   siteName: "CruțăLeula",
+   images: [
+     {
+       url: "/opengraph-image.jpg", // Calea către imaginea din folderul tău public (ex: public/og-image.png)
+       width: 1200,
+       height: 628,
+       alt: "CruțăLeula Previzualizare",
+     },
+   ],
+   locale: "ro_RO",
+   type: "website",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
