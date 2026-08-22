@@ -15,10 +15,10 @@ export function AppShell({
         <div className="flex items-center justify-between gap-3">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-400">
-              CrutsanimiaRON
+              Cruțănomia-RON
             </p>
             <p className="text-sm font-medium text-slate-200">
-              Patriotism economic
+              Economia RON
             </p>
           </div>
           <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-300">
